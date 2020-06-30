@@ -13,25 +13,25 @@ exports.signOn = (req, res) => {
 
 //Render the Second Page
 exports.stageTwo = (req,res) => {
+    //Grab all the keys for duo from your .env 
+    iKey = process.env.ikey
+    sKey = process.env.skey
+    aKey = process.env.akey
+    host = process.env.host
 
-    iKey = 'DIKGB7228EPKOLUKNN9E'
-    sKey = 'Ny9lETG5ELt1JugvmO90cfXSy10jFOxvWS60fXPe'
-    aKey = 'a62dc8b67a0423ea49466501c02aded43f4be1cb'
-    username = "dookah"
+    //Grab the username from the signin form submitted
+    username = req.body.username
 
-    //create a sigRequest
+    //Build the signrequest with the .env and the username
     const sigRequest = Duo.sign_request(iKey, sKey, aKey, username);
 
-    console.log(sigRequest.toString())
-    
-    //res.json({sigRequest, host: creds.host});
-    
+    //create an object to hold the information to pass to the front end
     let userInformation = {
-        duoHost : 'api-3d03e7b6.duosecurity.com',
+        duoHost : host,
         duoSig : sigRequest.toString() 
     }
 
-    
+    //render the front end with the information above templated in
     res.render('stage-two', userInformation);
 }
 

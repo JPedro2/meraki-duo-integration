@@ -1,24 +1,29 @@
 <link rel="stylesheet" href="css/sign-on.css">
 <section class="section">
     <div class="container box">
-
-        <img src='assets/WPP_Logo.png'>
+<div class="columns is-vcentered">
+    <div class="column">
+       <img src='assets/WPP_Logo.png'> 
+    </div>
+    <div class="column">
+       <img src='assets/Meraki_Logo.png'> 
+    </div>
         <!--Start of Login form -->
-        <h1 class="subtitle is-4 has-text-centered has-text-white">
-            Login to WPP
-        </h1>
+</div>
+        
+        
 
         <form action="/stageTwo" method="post">
             <div class="field">
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input " type="email" placeholder="Username">
+                    <input class="input " type="text" placeholder="Username" name="username">
                     <span class="icon is-small is-left">
-                        <i class="fa fa-envelope"></i>
+                        <i class="fa fa-user"></i>
                     </span>
                 </div>
             </div>
             
-    <button class="button is-link is-fullwidth">Login to WPP</button>
+    <button class="button has-background-meraki is-fullwidth has-text-white">Login to WPP</button>
   </div>    
         </form>
 
