@@ -37,10 +37,6 @@ bower_components
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
-# Dependency directories
-node_modules/
-jspm_packages/
-
 # TypeScript v1 declaration files
 typings/
 
@@ -103,5 +99,15 @@ dist
 # TernJS port file
 .tern-port
 
-# Node Modules
+# VM files
+fixPermissions.sh
+start-up-guide.md
+
+# Dependencies
 node_modules/
+jspm_packages/
+package-lock.json
+
+#PM2 config file
+splashPage.config.js
+

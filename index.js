@@ -27,5 +27,5 @@ app.use(express.static(__dirname + "/public"));
 app.use(routes);
 
 
-//Makes the app listen to port 3000
+//Makes the app listen to port 3006
 app.listen(port, () => console.log(`App listening to port ${port}`));
