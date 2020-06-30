@@ -1,29 +1,36 @@
+<link rel="stylesheet" href="css/sign-on.css">
 <section class="section">
     <div class="container box">
+
+        <img src='assets/WPP_Logo.png'>
         <!--Start of Login form -->
-        <h1 class="title has-text-centered">
-            <strong>Login</strong>
+        <h1 class="subtitle is-4 has-text-centered has-text-white">
+            Login to WPP
         </h1>
 
         <form action={{login_url}} method="post">
             <div class="field">
-                <label class="label">Email</label>
+                
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input " type="email" placeholder="Email">
+                    <input class="input " type="email" placeholder="Username">
                     <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
+                        <i class="fa fa-envelope"></i>
                     </span>
                 </div>
             </div>
             <div class="field">
-                <label class="label">Password</label>
+                
                 <div class="control has-icons-left has-icons-right">
                     <input class="input " type="password" placeholder="Password">
                     <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
+                        <i class="fa fa-lock"></i>
                     </span>
                 </div>
             </div>
+
+            <div class="control ">
+    <button class="button is-link is-fullwidth">Login to WPP</button>
+  </div>    
         </form>
 
     </div>

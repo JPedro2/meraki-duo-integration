@@ -7,6 +7,6 @@ exports.signOn = (req, res) => {
         //meraki injected code needs to go here
     }
     
-    //Render Page with the user data
+    //Render Page with the user
     res.render('sign-on', userInformation);
 }

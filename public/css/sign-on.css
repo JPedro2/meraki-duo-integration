@@ -1,0 +1,19 @@
+html { 
+    background: url(../assets/background.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+      background-size: cover;
+      overflow:hidden;
+  }
+  .box{
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -60%);
+      transform: translate(-50%, -60%);
+      width: 600px;
+      background-color: rgba(255, 255, 255, .20);  
+      backdrop-filter: blur(7px);
+      padding: 40px
+  }
