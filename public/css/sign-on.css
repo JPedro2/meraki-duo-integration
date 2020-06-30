@@ -17,3 +17,6 @@ html {
       backdrop-filter: blur(7px);
       padding: 40px
   }
+  iframe{
+      margin: 0 auto;
+  }

@@ -5,7 +5,10 @@ const router = express.Router();
 //Local Imports
 const appController = require('../controllers/app.controllers')
 
-//route to load sign on page
+//Routes for Pages
 router.get('/signon', appController.signOn)
+router.post('/stageTwo', appController.stageTwo)
+
+
 
 module.exports = router;
