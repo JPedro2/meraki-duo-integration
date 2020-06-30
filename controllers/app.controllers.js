@@ -13,9 +13,6 @@ exports.signOn = (req, res) => {
 
 //Render the Second Page
 exports.stageTwo = (req,res) => {
-    
-    console.log(req.body)
-
 
     iKey = 'DIKGB7228EPKOLUKNN9E'
     sKey = 'Ny9lETG5ELt1JugvmO90cfXSy10jFOxvWS60fXPe'
@@ -25,13 +22,13 @@ exports.stageTwo = (req,res) => {
     //create a sigRequest
     const sigRequest = Duo.sign_request(iKey, sKey, aKey, username);
 
-    console.log(sigRequest)
+    console.log(sigRequest.toString())
     
     //res.json({sigRequest, host: creds.host});
     
     let userInformation = {
         duoHost : 'api-3d03e7b6.duosecurity.com',
-        duoSig : JSON.stringify(sigRequest)
+        duoSig : sigRequest.toString() 
     }
 
     

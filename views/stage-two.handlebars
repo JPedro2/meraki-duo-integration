@@ -16,9 +16,12 @@
 <script src="/js/Duo-Web-v2.js"></script>
 <script>
 
+    signedResponse = "{{{duoSig}}}"
+    console.log(signedResponse)
+
   Duo.init({
-    'host': "{{duoHost}}",
-    'sig_request': "{{duoSig}}"
+    'host': 'api-3d03e7b6.duosecurity.com',
+    'sig_request': signedResponse,
   });
 
 </script>

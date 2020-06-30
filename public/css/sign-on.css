@@ -4,7 +4,7 @@ html {
     -moz-background-size: cover;
     -o-background-size: cover;
       background-size: cover;
-      overflow:hidden;
+      
   }
   .box{
       position: fixed;
@@ -19,4 +19,6 @@ html {
   }
   iframe{
       margin: 0 auto;
+      width: 100%;
+      height: 400px;
   }
