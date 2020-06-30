@@ -1,0 +1,34 @@
+{
+  "name": "meraki-duo-integration",
+  "version": "1.0.0",
+  "description": "Duo Integration into Meraki Captive Portal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JPedro2/meraki-duo-integration.git"
+  },
+  "keywords": [
+    "Meraki",
+    "Duo",
+    "Cisco",
+    "Captive",
+    "Portal"
+  ],
+  "author": "Joshua Dean, Pedro Oliveira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JPedro2/meraki-duo-integration/issues"
+  },
+  "homepage": "https://github.com/JPedro2/meraki-duo-integration#readme",
+  "dependencies": {
+    "@duosecurity/duo_web": "^1.0.5",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "express-session": "^1.17.1"
+  }
+}
