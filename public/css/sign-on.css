@@ -12,8 +12,8 @@ html {
       left: 50%;
       -webkit-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-      width: 600px;
-      background-color: rgb(255, 255, 255);  
+      width: 800px;
+      background-color: rgba(255, 255, 255, 0.795);  
       backdrop-filter: blur(7px);
       padding: 40px
   }
