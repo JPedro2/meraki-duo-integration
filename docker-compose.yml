@@ -1,0 +1,28 @@
+version: "3"
+services:
+    splash-page-nodejs:
+        build: ./customSplashPage
+        restart: always
+        env_file:
+            - ./env/splashPageVariables.env
+        ports:
+            - "3006:3006"
+        networks:
+            - proxy
+        
+    frontend-server:
+        image: nginx:mainline-alpine
+        restart: always
+        ports:
+            - "80:80"
+        volumes:
+            - ./customSplashPage/nginx-conf:/etc/nginx/conf.d
+        depends_on:
+            - splash-page-nodejs
+        networks:
+            - proxy
+
+
+networks:
+    proxy:
+        driver: bridge
