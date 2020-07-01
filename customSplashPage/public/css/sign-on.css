@@ -12,10 +12,9 @@ html {
       left: 50%;
       -webkit-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-      width: 800px;
+      width: 30%;
       background-color: rgba(255, 255, 255, 0.795);  
       backdrop-filter: blur(7px);
-      padding: 40px
   }
   iframe{
       margin: 0 auto;
@@ -29,3 +28,20 @@ html {
   .has-background-meraki{
       background-color: #78BB41;
   }
+
+  @media only screen and (max-width: 600px) {
+    .box{
+       
+        width: 90%;
+        
+    }
+
+  }
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .box{
+       
+    width: 80%;
+    
+}}
