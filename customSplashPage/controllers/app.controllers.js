@@ -9,6 +9,10 @@ exports.signOn = (req, res) => {
         
     }
     
+    //save the users session variables in session storage
+    req.session.base_grant_url = req.query.base_grant_url;
+    req.session.user_continue_url = req.query.user_continue_url;
+
     //Render Page with the user
     res.render('sign-on', userInformation);
 }
@@ -46,7 +50,8 @@ exports.stageTwo = (req,res) => {
             //create an object to hold the information to pass to the front end
             let userInformation = {
                 duoHost : host,
-                duoSig : sigRequest.toString() 
+                duoSig : sigRequest.toString(),
+                duoPost: "/success"
             }
 
             console.log("yes")
@@ -66,3 +71,11 @@ exports.stageTwo = (req,res) => {
     })
 }
 
+exports.success = (req,res) => {
+    //construct the success url
+    successUrl = req.session.base_grant_url + "?continue_url=" + req.session.user_continue_url + "&duration=43200";
+
+    //redirect to the webpage
+    res.redirect(successUrl);
+    
+}

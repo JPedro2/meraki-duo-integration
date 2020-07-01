@@ -8,7 +8,8 @@ const cors = require('cors');
 const path = require("path");
 const routes = require("./routes/app.routes")
 const bodyParser = require('body-parser');
-const Duo = require('./node_modules/@duosecurity/duo_web/index'); 
+const Duo = require('./node_modules/@duosecurity/duo_web/index');
+let session = require('express-session'); 
 //Establish port for the app
 const port = process.env.PORT || 3006;
 
@@ -18,6 +19,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
+//Set up sessions
+app.use(session({
+    secret : 'secret-key',
+    resave : false,
+    saveUninitialized : false
+}));
   
 
 //Assigning Rendering engine to express

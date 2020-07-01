@@ -15,10 +15,12 @@
 
     signedResponse = "{{{duoSig}}}"
     host = "{{{duoHost}}}"
+    postAction = "{{{duoPost}}}"
 
   Duo.init({
     'host': host,
     'sig_request': signedResponse,
+    'post_action' :postAction
   });
 
 </script>
