@@ -1,0 +1,15 @@
+#NODE variables:
+NODE_ENV=development-OR-production
+baseUrlAuth=http(s)://<IP/URL-of-API-UserLogin-services>
+PORT=3006-by-default
+
+
+#DUO Credentials:
+#Integration Key
+ikey=
+#Secrect Key
+skey=
+#Generated for this app only and not visible to DUO. https://duo.com/docs/duoweb#1.-generate-an-akey
+akey=
+#DUO API hostname
+host=

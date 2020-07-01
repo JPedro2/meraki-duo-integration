@@ -4,7 +4,7 @@ services:
         build: ./customSplashPage
         restart: always
         env_file:
-            - ./env/DUOcredentials.env
+            - ./env/splashPageVariables.env
         ports:
             - "3006:3006"
         networks:
