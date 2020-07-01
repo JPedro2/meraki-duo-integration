@@ -54,7 +54,7 @@ exports.stageTwo = (req,res) => {
                 duoPost: "/success"
             }
 
-            console.log("yes")
+            console.log(`User ${username} has passed the first stage of authentication.`)
            
             
             //render the front end with the information above templated in
@@ -64,7 +64,7 @@ exports.stageTwo = (req,res) => {
             //send them back to stage one with an error flag
             res.render('sign-on', {error: true});
             
-            console.log("no")
+            console.log(`User ${username} has FAILED the first stage of authentication.`)
         }
     }).catch(err => {
         console.log(err);
@@ -72,6 +72,9 @@ exports.stageTwo = (req,res) => {
 }
 
 exports.success = (req,res) => {
+
+    console.log(`User ${username} has passed the second stage of authentication.`)
+
     //construct the success url
     successUrl = req.session.base_grant_url + "?continue_url=" + req.session.user_continue_url + "&duration=43200";
 

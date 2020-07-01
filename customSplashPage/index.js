@@ -9,9 +9,11 @@ const path = require("path");
 const routes = require("./routes/app.routes")
 const bodyParser = require('body-parser');
 const Duo = require('./node_modules/@duosecurity/duo_web/index');
+const uniqid = require('uniqid');
 let session = require('express-session'); 
 //Establish port for the app
 const port = process.env.PORT || 3006;
+
 
 //Create an instance of express
 const app = express();
@@ -19,9 +21,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
+//Generate a key based on current time, process and machine name.
+let sessionKey = uniqid();
+
 //Set up sessions
 app.use(session({
-    secret : 'secret-key',
+    secret : sessionKey,
     resave : false,
     saveUninitialized : false
 }));
