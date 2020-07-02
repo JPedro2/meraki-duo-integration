@@ -5,7 +5,9 @@ const e = require('express');
 
 //Assets I want to copy over
 const ASSETS = [
-    'bulma/css/bulma.css'
+    'bulma/css/bulma.css',
+    'font-awesome/css/font-awesome.css',
+    'font-awesome/fonts/fontawesome-webfont.woff'
 ];
 
 //If the folder doesn't exit make it
