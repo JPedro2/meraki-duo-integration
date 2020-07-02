@@ -23,6 +23,7 @@ pids
 
 # environment variables file
 env/*.env
+/customSplashPage/*.env
 
 # VM files
 fixPermissions.sh
@@ -37,3 +38,6 @@ customSplashPage/package-lock.json
 
 #.DS_Store
 **/.DS_Store
+
+#Front-end dependencies
+/customSplashPage/public/dependencies
