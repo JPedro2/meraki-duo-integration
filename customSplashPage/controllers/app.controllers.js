@@ -93,4 +93,32 @@ exports.success = (req,res) => {
     //redirect to the webpage
     res.redirect(successUrl);
     
+    
+}
+
+
+exports.signOnOkta = (req, res) => {
+    console.log('-------------------------------')
+    console.log('A User has requested the splash page')
+    console.log('--- --- --- --- --- --- --- ---')
+    console.log(`Meraki Grant URL is: ${req.query.base_grant_url}`)
+    console.log(`Meraki Continue URL is: ${req.query.user_continue_url}`)
+    console.log(`Users ip address: ${req.query.client_ip}`)
+    console.log(`Users mac address: ${req.session.client_mac = req.query.client_mac}`)
+
+     //save the users session variables in session storage
+     req.session.base_grant_url = req.query.base_grant_url;
+     req.session.user_continue_url = req.query.user_continue_url;
+     
+     //build out the url endpoint for successful auth to pass to okta 
+     let successEndpoint = 'http://' + req.headers.host + "/success"
+     
+     //Insert the successendpoint into an object
+     let userInformation = {
+        successURL: successEndpoint
+    }
+
+     //Render Page with the success url
+    res.render('okta', userInformation);
+ 
 }
