@@ -1,6 +1,7 @@
 #NODE variables:
 NODE_ENV=development-OR-production
 baseUrlAuth=http(s)://<IP/URL-of-API-UserLogin-services>
+baseUrlOKTA=https://<OKTA-App-URL>
 PORT=3006-by-default
 
 

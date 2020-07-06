@@ -1,4 +1,4 @@
-FROM node:12.16.3
+FROM node:12.18.2
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -6,12 +6,14 @@ WORKDIR /usr/src/app
 # Install app dependencies: both package.json AND package-lock.json are copied
 COPY package*.json ./
 
-#RUN npm install
-# In production
 RUN npm ci --only=production
 
 # Bundle app source
 COPY . ./
 
+#Build CSS Dependencies
+RUN npm run build
+
 EXPOSE 3006
-CMD [ "node", "index.js" ]
+
+CMD [ "npm", "start" ]
