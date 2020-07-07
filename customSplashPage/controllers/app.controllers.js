@@ -1,12 +1,6 @@
 const Duo = require('../node_modules/@duosecurity/duo_web/index');
 const fetch = require('node-fetch');
 const btoa = require('btoa');
-const OktaJwtVerifier = require('@okta/jwt-verifier');
-
-
-const oktaJwtVerifier = new OktaJwtVerifier({
-    issuer: 'https://dev-323027.okta.com/oauth2/default' // issuer required
-});
 
 //Render the First Page 
 exports.signOn = (req, res) => {
@@ -125,7 +119,7 @@ exports.success = (req, res) => {
 
     let userToken = req.params;
 
-
+    //build out a url using okta redirect with meraki auth url
     let grant = process.env.baseUrlOKTA + '/login/sessionCookieRedirect?token=' + userToken.token + '&redirectUrl=' + successUrl
     
     //Log where the user is going to go 
