@@ -65,8 +65,8 @@ host=`host goes here`
 
 ## Authors & Maintainers
 
-- Pedro Oliveira <peolivei@cisco.com>
-- Josh Dean <joshudea@cisco.com>
+- [Pedro Oliveira](peolivei@cisco.com)
+- [Josh Dean](joshudea@cisco.com)
 
 ## License
 
