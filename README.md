@@ -63,6 +63,15 @@ akey=`akey goes here`
 
 host=`host goes here`
 
+## Authors & Maintainers
+
+- Pedro Oliveira <peolivei@cisco.com>
+- Josh Dean <joshudea@cisco.com>
+
+## License
+
+This project is licensed to you under the terms of the [Cisco Sample
+Code License](./LICENSE).
 
 
 
