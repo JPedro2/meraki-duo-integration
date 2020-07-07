@@ -9,8 +9,8 @@ const appController = require('../controllers/app.controllers')
 router.get('/signon', appController.signOn)
 router.get('/signonokta', appController.signOnOkta)
 router.post('/stageTwo', appController.stageTwo)
-router.post('/success', appController.success)
-router.get('/success', appController.success)
+router.post('/success/:token', appController.success)
+router.get('/success/:token', appController.success)
 
 
 module.exports = router;

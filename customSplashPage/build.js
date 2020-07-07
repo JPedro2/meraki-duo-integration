@@ -46,7 +46,7 @@ ASSETS.map(asset => {
     //If the node module is installed
     if (fs.existsSync(from)) {
         fs.createReadStream(from).pipe(fs.createWriteStream(to));
-        console.log(`Build Process: '${asset}' Imported to Frone-End Dependencies`)
+        console.log(`Build Process: '${asset}' Imported to Front-End Dependencies`)
      } //If the node module isnt installed
      else {
         console.log(`${from} does not exist.\nUpdate the build.js script with the correct file paths.`)
@@ -71,7 +71,7 @@ FONTS.map(asset => {
     //If the node module is installed
     if (fs.existsSync(from)) {
         fs.createReadStream(from).pipe(fs.createWriteStream(to));
-        console.log(`Build Process: '${asset}' Imported to Frone-End Fonts`)
+        console.log(`Build Process: '${asset}' Imported to Front-End Fonts`)
      } //If the node module isnt installed
      else {
         console.log(`${from} does not exist.\nUpdate the build.js script with the correct file paths.`)
