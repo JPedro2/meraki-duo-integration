@@ -35,10 +35,12 @@ const routes = require("./routes/app.routes")
 const bodyParser = require('body-parser');
 const Duo = require('./node_modules/@duosecurity/duo_web/index');
 const uniqid = require('uniqid');
+
 let session = require('express-session'); 
 const { Console } = require('console');
 //Establish port for the app
 const port = process.env.PORT || 3006;
+
 
 
 //Create an instance of express

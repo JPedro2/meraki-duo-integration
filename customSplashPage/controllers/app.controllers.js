@@ -26,9 +26,17 @@
 const Duo = require('../node_modules/@duosecurity/duo_web/index');
 const fetch = require('node-fetch');
 const btoa = require('btoa');
+var log4js = require("log4js");
+
+//Instantiate the logger
+var logger = log4js.getLogger();
+//Set the logging levels
+logger.level = "debug";
 
 //Render the First Page 
 exports.signOn = (req, res) => {
+
+
     console.log('-------------------------------')
     console.log('A User has requested the splash page')
     console.log('--- --- --- --- --- --- --- ---')
@@ -108,18 +116,16 @@ exports.stageTwo = (req, res) => {
 
 
 exports.signOnOkta = (req, res) => {
-    console.log('-------------------------------')
-    console.log('A User has requested the splash page')
-    console.log('--- --- --- --- --- --- --- ---')
-    console.log(`Meraki Grant URL is: ${req.query.base_grant_url}`)
-    console.log(`Meraki Continue URL is: ${req.query.user_continue_url}`)
-    console.log(`Users ip address: ${req.query.client_ip}`)
-    console.log(`Users mac address: ${req.session.client_mac = req.query.client_mac}`)
-
     //save the users session variables in session storage
     req.session.base_grant_url = req.query.base_grant_url;
     req.session.user_continue_url = req.query.user_continue_url;
+    req.session.client_mac = req.query.client_mac;
+    req.session.client_ip = req.query.client_ip;
 
+    //Log User has requested the page
+    logger.debug(`User ( ${req.query.client_ip} | ${req.session.client_mac} ) has began authentication process`);
+    logger.debug(`User ( ${req.query.client_ip} | ${req.session.client_mac} ) grant URL is: ${req.query.base_grant_url}`)
+    
     //build out the url endpoint for successful auth to pass to okta 
     let successEndpoint = 'http://' + req.headers.host + "/success"
 
@@ -135,23 +141,20 @@ exports.signOnOkta = (req, res) => {
 
 //function called when a user is successfully authenticated
 exports.success = (req, res) => {
-    //Log the user has passed duo
-    console.log('-------------------------------')
-    console.log(`User ${req.session.username} the second stage of authentication.`)
 
-    //construct the success url
+    //construct the meraki success url which grants network access
     successUrl = req.session.base_grant_url + "?continue_url=" + req.session.user_continue_url + "&duration=43200";
 
+    //Token passed in from the front-end successful auth
     let userToken = req.params;
 
     //build out a url using okta redirect with meraki auth url
+    //If the token is valid redirect will be successful
     let grant = process.env.baseUrlOKTA + '/login/sessionCookieRedirect?token=' + userToken.token + '&redirectUrl=' + successUrl
     
     //Log where the user is going to go 
-    console.log(`Redirecting User ${req.session.username} to ${successUrl}`)
+    logger.debug(`User ( ${req.session.client_ip} | ${req.session.client_mac} ) has authenticated client side, redirecting to: ${req.session.user_continue_url}`)
+    
     //redirect to the webpage
     res.redirect(grant);
-
-
-
 }
