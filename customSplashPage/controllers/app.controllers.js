@@ -27,6 +27,7 @@ const Duo = require('../node_modules/@duosecurity/duo_web/index');
 const fetch = require('node-fetch');
 const btoa = require('btoa');
 var log4js = require("log4js");
+const { json } = require('body-parser');
 
 //Instantiate the logger
 var logger = log4js.getLogger();
@@ -79,9 +80,21 @@ exports.stageTwo = (req, res) => {
                 "Access-Control-Allow-Origin": "*"
             }
         })
-        .then(function (response) {
-            if (response.status === 200) { //If the login credentials are okay
+        .then((res) => { 
+            status = res.status; //get the status of the api call
+            console.log(status)
+            if (status == 200) {
+                return res.json()
+            } //convert the response into json
+          })
+          .then((jsonData) => {
 
+            console.log(jsonData)
+            if (status === 200) { //If the login credentials are okay
+                
+                
+                //save the auth token for the user 
+                req.session.authToken = jsonData.token;
                 //Build the signrequest with the .env and the username
                 const sigRequest = Duo.sign_request(iKey, sKey, aKey, username);
 
@@ -89,7 +102,7 @@ exports.stageTwo = (req, res) => {
                 let userInformation = {
                     duoHost: host,
                     duoSig: sigRequest.toString(),
-                    duoPost: "/success"
+                    duoPost: "/authSuccess"
                 }
 
                 //Log the user has passed first auth stage
@@ -157,4 +170,46 @@ exports.success = (req, res) => {
     
     //redirect to the webpage
     res.redirect(grant);
+}
+
+exports.authSuccess = (req,res) => {
+
+    let authToken = req.session.authToken//Token from april sign-in to verify
+    let signedResponse = req.body.sig_response;  //Posted back from duo to verify
+    
+
+    console.log(authToken)
+    //Check the auth token is valid
+
+
+    fetch(process.env.baseUrlAuth + "/api/auth/checkPosture", {
+        method: 'GET',
+        headers: {
+            "Authorization": 'Bearer ' + authToken,
+            "Access-Control-Allow-Origin": "*"
+        }
+    })
+    .then((response) => { 
+        let status = response.status; //get the status of the api call
+
+        if (status == 200){ //Username and password have been entered correctly
+            let authenticated_username = Duo.verify_response(process.env.ikey, process.env.skey, process.env.akey, signedResponse) //verify the duo has actually passed
+
+            if (authenticated_username) {
+                let successUrl = req.session.base_grant_url + "?continue_url=" + req.session.user_continue_url + "&duration=43200";
+
+                res.redirect(successUrl);
+            }
+            
+        } else { //Username and password have been entered incorrectly 
+            res.render('sign-on', {
+                error: true
+            });
+        }
+    })
+      .catch(err => {
+        console.log(err);
+     })
+    
+
 }

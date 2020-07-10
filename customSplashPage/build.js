@@ -31,7 +31,8 @@ const e = require('express');
 //Assets I want to copy over
 const ASSETS = [
     'bulma/css/bulma.css',
-    'font-awesome/css/font-awesome.css'
+    'font-awesome/css/font-awesome.css',
+    '@okta/okta-signin-widget'
 ];
 
 const FONTS = [
