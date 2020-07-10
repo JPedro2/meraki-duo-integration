@@ -40,6 +40,7 @@ router.post('/authSuccess', appController.authSuccess)
 
 //Okta Auth Routes
 router.get('/signonokta', appController.signOnOkta)
+router.get('/success/:token', appController.success)
 router.post('/success/:token', appController.success)
 
 
