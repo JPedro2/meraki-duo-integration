@@ -27,6 +27,7 @@ const Duo = require('../node_modules/@duosecurity/duo_web/index');
 const fetch = require('node-fetch');
 const btoa = require('btoa');
 var log4js = require("log4js");
+const { json } = require('body-parser');
 
 //Instantiate the logger
 var logger = log4js.getLogger();
@@ -35,16 +36,6 @@ logger.level = "debug";
 
 //Render the First Page 
 exports.signOn = (req, res) => {
-
-
-    console.log('-------------------------------')
-    console.log('A User has requested the splash page')
-    console.log('--- --- --- --- --- --- --- ---')
-    console.log(`Meraki Grant URL is: ${req.query.base_grant_url}`)
-    console.log(`Meraki Continue URL is: ${req.query.user_continue_url}`)
-    console.log(`Users ip address: ${req.query.client_ip}`)
-    console.log(`Users mac address: ${req.session.client_mac = req.query.client_mac}`)
-
     //save the users session variables in session storage
     req.session.base_grant_url = req.query.base_grant_url;
     req.session.user_continue_url = req.query.user_continue_url;
@@ -79,9 +70,20 @@ exports.stageTwo = (req, res) => {
                 "Access-Control-Allow-Origin": "*"
             }
         })
-        .then(function (response) {
-            if (response.status === 200) { //If the login credentials are okay
+        .then((res) => { 
+            status = res.status; //get the status of the api call
+            
+            if (status == 200) {
+                return res.json()
+            } //convert the response into json
+          })
+          .then((jsonData) => {
 
+            if (status === 200) { //If the login credentials are okay
+                
+                
+                //save the auth token for the user 
+                req.session.authToken = jsonData.token;
                 //Build the signrequest with the .env and the username
                 const sigRequest = Duo.sign_request(iKey, sKey, aKey, username);
 
@@ -89,12 +91,11 @@ exports.stageTwo = (req, res) => {
                 let userInformation = {
                     duoHost: host,
                     duoSig: sigRequest.toString(),
-                    duoPost: "/success"
+                    duoPost: "/authSuccess"
                 }
 
                 //Log the user has passed first auth stage
-                console.log('-------------------------------')
-                console.log(`User ${username} has passed the first stage of authentication.`)
+                logger.info(`User ${username} has passed the first stage of authentication`)
 
                 //render the front end with the information above templated in
                 res.render('stage-two', userInformation);
@@ -104,8 +105,9 @@ exports.stageTwo = (req, res) => {
                 res.render('sign-on', {
                     error: true
                 });
-                console.log('-------------------------------')
-                console.log(`User ${username} has FAILED the first stage of authentication.`)
+
+                logger.warn(`User ${username} has failed authentication.`)
+                
 
             }
         }).catch(err => {
@@ -123,7 +125,7 @@ exports.signOnOkta = (req, res) => {
     req.session.client_ip = req.query.client_ip;
 
     //Log User has requested the page
-    logger.debug(`User ( ${req.query.client_ip} | ${req.session.client_mac} ) has began authentication process`);
+    logger.info(`User ( ${req.query.client_ip} | ${req.session.client_mac} ) has began authentication process`);
     logger.debug(`User ( ${req.query.client_ip} | ${req.session.client_mac} ) grant URL is: ${req.query.base_grant_url}`)
     
     //build out the url endpoint for successful auth to pass to okta 
@@ -139,7 +141,7 @@ exports.signOnOkta = (req, res) => {
     res.render('okta', userInformation);
 }
 
-//function called when a user is successfully authenticated
+//Success Controller for Okta sign on
 exports.success = (req, res) => {
 
     //construct the meraki success url which grants network access
@@ -157,4 +159,53 @@ exports.success = (req, res) => {
     
     //redirect to the webpage
     res.redirect(grant);
+}
+
+
+
+//Success Controller for Custom Auth (Non Okta)
+exports.authSuccess = (req,res) => {
+
+    let authToken = req.session.authToken//Token from april sign-in to verify
+    let signedResponse = req.body.sig_response;  //Posted back from duo to verify
+    
+
+    fetch(process.env.baseUrlAuth + "/api/auth/checkPosture", {
+        method: 'GET',
+        headers: {
+            "Authorization": 'Bearer ' + authToken,
+            "Access-Control-Allow-Origin": "*"
+        }
+    })
+    .then((response) => { 
+        let status = response.status; //get the status of the api call
+
+        if (status == 200){ //Username and password have been entered correctly
+            let authenticated_username = Duo.verify_response(process.env.ikey, process.env.skey, process.env.akey, signedResponse) //verify the duo has actually passed
+
+            if (authenticated_username) {
+                let successUrl = req.session.base_grant_url + "?continue_url=" + req.session.user_continue_url + "&duration=43200";
+                
+                logger.info(`User ${req.session.username} has fully authenticated, redirecting to: ${req.session.user_continue_url}`)
+                
+                res.redirect(successUrl);
+            }
+            else {
+                logger.warn(`User ${req.session.username} has failed authenticaiton due to failed 2FA.`)
+            }
+            
+        } else { //Username and password have been entered incorrectly 
+
+            logger.warn(`User ${req.session.username} has failed authenticaiton with an incorrect Username / Password.`)
+
+            res.render('sign-on', {
+                error: true
+            });
+        }
+    })
+      .catch(err => {
+        console.log(err);
+     })
+    
+
 }

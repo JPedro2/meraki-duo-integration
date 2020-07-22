@@ -66,8 +66,17 @@ app.set('view engine', 'handlebars');
 app.set("views", path.join(__dirname, "views"));
 
 
-//Public holds things like CSS, local JS and Images
-app.use(express.static(__dirname + "/public"));
+// Public holds things like CSS, local JS and Images
+app.use('/', express.static(__dirname + "/public"));
+
+// Redirect needed CSS from node modules 
+app.use('/css', express.static(__dirname + '/node_modules/bulma/css')); 
+app.use('/css', express.static(__dirname + '/node_modules/@okta/okta-signin-widget/dist/css'));
+
+// Redirect needed JS from node modules
+app.use('/js', express.static(__dirname + '/node_modules/@okta/okta-signin-widget/dist/js'));
+
+//Set the server to user established routes
 app.use(routes);
 
 

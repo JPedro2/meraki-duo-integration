@@ -12,3 +12,8 @@ html {
     background-color: #78BB41 !important;
     border: none;
 } 
+#okta-sign-in.auth-container .button-primary:active, #okta-sign-in.auth-container .button-primary:focus, #okta-sign-in.auth-container .button-primary:hover {
+  background: #78BB41 !important;
+  background-color: #78BB41 !important;
+  border: 1px solid black;
+}
