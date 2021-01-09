@@ -1,7 +1,7 @@
 # Meraki Duo Integration
 ---
 ## What is it?
-An awesome webapp that can be used as a Meraki WiFi captive portal. Capabilityies include the ability to use OKTA SSO or your own authentication, enhanced with Cisco DUO MFA!
+An awesome webapp that can be used as a Meraki WiFi captive portal. Capabilities include the ability to use OKTA SSO or your own authentication, enhanced with Cisco DUO MFA!
 
 Supported Features:
 
