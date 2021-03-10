@@ -13,8 +13,8 @@ html {
       -webkit-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
       width: 30%;
-      background-color: rgba(255, 255, 255, 0.795);  
-      backdrop-filter: blur(7px);
+      background-color: rgba(255, 255, 255, 0.15);  
+      backdrop-filter: blur(5px);
   }
   iframe{
       margin: 0 auto;
@@ -43,5 +43,13 @@ html {
     .box{
        
     width: 80%;
+    
+}}
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 1000px) {
+    .box{
+       
+    width: 45%;
     
 }}
