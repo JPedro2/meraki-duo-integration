@@ -57,13 +57,13 @@ For that you will need to have both a _DUO_ and a _Okta_ account, if you are usi
 
 **Please note:** In this demo the _DUO Web SDKv2_ is used. If you wish to use the latest _DUO Web SDKv4_ you will need to [follow this guide to upgrade it from Web SDKv2](https://duo.com/docs/duoweb#upgrading-from-web-sdk-2).
 
-### Okta Account Setup (optional)
+### Okta Account Setup
 1. Create a [free developer account](https://developer.okta.com/signup/), if you don't have an account already
 2. Create your _Okta SSO_ integration by following [this guide](https://developer.okta.com/docs/guides/build-sso-integration/openidconnect/create-your-app/)
 3. Select the _Application Type_ as `Web` and the _Grant Type_ as `Authorization Code` by following [this guide](https://developer.okta.com/docs/guides/build-sso-integration/openidconnect/specify-your-settings/)
 4. Set the `Login redirect URI` to a webpage of your choice (doesn't matter which one)
 5. Assign users to your _Okta Org_ by following [this guide](https://developer.okta.com/docs/guides/build-sso-integration/openidconnect/test-your-app/#assign-users)
-6. Find the `baseUrlOKTA` [from here](https://developer.okta.com/docs/guides/build-sso-integration/openidconnect/test-your-app/#assign-users) and add it to the [splashPageVariables.env](./env/splashPageVariables.env) file
+6. Find the `baseUrlOKTA` [from here](https://developer.okta.com/docs/guides/build-sso-integration/openidconnect/test-your-app/#assign-users) and add it to the `splashPageVariables.env` file
 7. Add _DUO Security (MFA)_ integration to your _Okta_ application by following this [guide](https://help.okta.com/en/prod/Content/Topics/Security/Security_Duo.htm)
 
 ### Custom Authentication
