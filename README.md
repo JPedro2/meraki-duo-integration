@@ -129,7 +129,7 @@ You will also need to setup the _Walled Garden_, which determines what network a
     * If you deployed with the Container option:
       * `<webapp-ip/domain>/signonokta` - if you are using _OKTA_ 
       * `<webapp-ip/domain>/signon` - if you are using _Custom Auth_
-
+12. Press **Save Changes** at the bottom of the screen
 
 
 ## Authors & Maintainers
